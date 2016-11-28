@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  {{content}}
+  <ion-list>
+    <ion-item *ngFor="let thread of threads">
+      <ion-avatar item-left>
+        <img src="assets/img/avatar-ts-woody.png">
+      </ion-avatar>
+      <h2>{{thread.title}}</h2>
+      <p>{{thread.description}}</p>
+      <ion-note item-right>{{thread.timestamp}}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
