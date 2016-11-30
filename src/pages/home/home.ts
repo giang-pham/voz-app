@@ -43,4 +43,8 @@ export class HomePage implements OnInit {
     this.getContent();
   }
 
+  goto(id:string):void{
+    alert(id);
+  }
+
 }

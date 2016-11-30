@@ -32,11 +32,16 @@ export class ThreadService {
     $threadList.each(function (i, thread) {
       var $this = $(this);
 
-      var title = $($this.find('[id^="thread_title"]')).text();
+      var title = $this.find('[id^="thread_title"]')
+      var $title = $(title);
+      var titleText = $title.text();
+
+      var id = $title.attr('id').replace('thread_title_', '');
 
       var op = $($this.find('.alt1 .smallfont > span')).text();
       var view = $($this).find('td:nth-child(5)').text();
-      result.push({id: i, author: op, title: title, view: view});
+
+      result.push({id: id, author: op, title: titleText, view: view});
     });
     return result;
   }
