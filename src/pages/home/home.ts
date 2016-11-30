@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ThreadService } from '../../app/thread.service';
 import { Thread } from '../../app/model/Thread';
+import { LoadingController } from 'ionic-angular';
 
 
 @Component({
@@ -12,22 +13,32 @@ import { Thread } from '../../app/model/Thread';
   providers: [ThreadService]
 })
 export class HomePage implements OnInit {
-  threads: Thread[];
-  content: string;
+  threads:Thread[];
+  content:Thread;
 
-  constructor(public navCtrl: NavController, private threadService: ThreadService) {
+  constructor(public navCtrl:NavController, private threadService:ThreadService, private loadingController:LoadingController) {
 
   }
 
-  getThreads(): void {
-    this.threadService.getThreads().then(threads => this.threads = threads);
+  getThreads():void {
+    let loader = this.loadingController.create({
+      content: "Loading"
+    });
+    loader.present();
+    this.threadService.getThreads().subscribe(
+      res => this.threads = res,
+      err => console.warn(err),
+      () => {
+        loader.dismiss();
+      }
+    );
   }
 
-  getContent(): void {
-    this.threadService.getContent().then(content => this.content = content);
+  getContent():void {
+    this.threadService.getContent().then(content => console.log(content));
   }
 
-  ngOnInit(): void {
+  ngOnInit():void {
     this.getThreads();
     this.getContent();
   }

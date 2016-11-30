@@ -3,33 +3,41 @@
  */
 import { Injectable } from '@angular/core';
 import { Thread } from './model/Thread';
-import { THREADS } from './mock-threads';
-import { HTTP } from 'ionic-native';
+import { Http, Response } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import * as $ from 'jquery';
 
 @Injectable()
 export class ThreadService {
-  getThreads():Promise<Thread[]> {
-    return Promise.resolve(THREADS);
+
+  constructor(private http:Http) {
+  }
+
+  getThreads():Observable<Thread[]> {
+    return this.http.get('https://vozforums.com/forumdisplay.php?f=33').
+      map(this.getThreadContent);
   }
 
   getContent():Promise<string> {
-    HTTP.get('http://ionic.io', {}, {})
-      .then(data => {
-        console.log(data.data);
-      })
-      .catch(error => {
-        console.log(error.error);
-      });
-    return new Promise((resolve, reject) => {
-      HTTP.get('http://ionic.io', {}, {})
-        .then(data => {
-          console.log(data.data);
-          resolve(data.data); // data received by server
-        })
-        .catch(error => {
-          resolve(error.error); // error message as string
-        });
-    });
+    return Promise.resolve('');
+  }
 
+  getThreadContent(res:Response) {
+    var result = [];
+    var body = '<div id="body-mock">' + res.text().replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/ig, '')
+        .replace(new RegExp('images/', 'g'), 'https://vozforums.com/images/').replace('/clear.gif', 'https://vozforums.com/clear.gif') + '</div>';
+    var $body = $(body);
+    var $threadList = $($body.find('#threadbits_forum_33 > tr'));
+    $threadList.each(function (i, thread) {
+      var $this = $(this);
+
+      var title = $($this.find('[id^="thread_title"]')).text();
+
+      var op = $($this.find('.alt1 .smallfont > span')).text();
+      var view = $($this).find('td:nth-child(5)').text();
+      result.push({id: i, author: op, title: title, view: view});
+    });
+    return result;
   }
 }
