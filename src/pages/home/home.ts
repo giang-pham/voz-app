@@ -5,7 +5,6 @@ import { NavController } from 'ionic-angular';
 import { ThreadService } from '../../app/thread.service';
 import { PostService } from '../../app/post.service';
 import { Thread } from '../../app/model/threadObj';
-import { Post } from '../../app/model/postObj';
 import { LoadingController } from 'ionic-angular';
 import { ThreadPage } from '../thread/thread';
 

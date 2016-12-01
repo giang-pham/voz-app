@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
-import { ThreadService } from '../../app/thread.service';
 import { PostService } from '../../app/post.service';
 import { Post } from '../../app/model/postObj';
 import { LoadingController } from 'ionic-angular';
