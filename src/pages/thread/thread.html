@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>F33</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let post of posts" (click)="goto(post.id)">
+    <ion-item>
+      <ion-row>
+        <ion-col><h2>{{post.author}}</h2></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>{{post.title}}</p>
+        </ion-col>
+        <ion-col center text-center>
+          <p>11h ago</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-card-content>
+      <p>{{post.content}}</p>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
+
+

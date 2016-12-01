@@ -1,51 +1,48 @@
+/**
+ * Created by SGHP001 on 12/1/2016.
+ */
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ThreadService } from '../../app/thread.service';
 import { PostService } from '../../app/post.service';
-import { Thread } from '../../app/model/threadObj';
 import { Post } from '../../app/model/postObj';
 import { LoadingController } from 'ionic-angular';
-import { ThreadPage } from '../thread/thread';
 
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
-  providers: [ThreadService, PostService]
+  selector: 'page-thread',
+  templateUrl: 'thread.html',
+  providers: [PostService]
 })
-export class HomePage implements OnInit {
-  threads:Thread[];
-  startThread:number;
+export class ThreadPage implements OnInit {
+  posts:Post[];
+  thread:number;
 
   constructor(public navCtrl:NavController,
-              private threadService:ThreadService,
+              public params:NavParams,
               private postService:PostService,
               private loadingController:LoadingController) {
-    this.startThread = 33;
+    this.thread = params.get('thread');
   }
 
-  getThreads(t:number):void {
+  ngOnInit():void {
+    this.getPosts(this.thread);
+  }
+
+  getPosts(t:number):void {
     let loader = this.loadingController.create({
       content: "Loading"
     });
     loader.present();
-    this.threadService.getThreads(t).subscribe(
-        res => this.threads = res,
+    this.postService.getPosts(t).subscribe(
+        res => this.posts = res,
         err => console.warn(err),
       () => {
         loader.dismiss();
       }
     );
-  }
-
-  ngOnInit():void {
-    this.getThreads(this.startThread);
-  }
-
-  goto(id:number) {
-    this.navCtrl.push(ThreadPage, {thread: id});
   }
 
 }

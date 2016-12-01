@@ -5,6 +5,7 @@ import { BookmarkPage } from '../pages/bookmark/bookmark';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ThreadPage } from '../pages/thread/thread';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TabsPage } from '../pages/tabs/tabs';
     BookmarkPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ThreadPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -23,7 +25,8 @@ import { TabsPage } from '../pages/tabs/tabs';
     BookmarkPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ThreadPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
