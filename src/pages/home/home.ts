@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 import { ThreadService } from '../../app/thread.service';
-import { PostService } from '../../app/post.service';
 import { Thread } from '../../app/model/threadObj';
 import { LoadingController } from 'ionic-angular';
 import { ThreadPage } from '../thread/thread';
@@ -12,7 +11,7 @@ import { ThreadPage } from '../thread/thread';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [ThreadService, PostService]
+  providers: [ThreadService]
 })
 export class HomePage implements OnInit {
   threads:Thread[];
@@ -20,7 +19,6 @@ export class HomePage implements OnInit {
 
   constructor(public navCtrl:NavController,
               private threadService:ThreadService,
-              private postService:PostService,
               private loadingController:LoadingController) {
     this.startThread = 33;
   }
