@@ -18,28 +18,43 @@ import { LoadingController } from 'ionic-angular';
 export class ThreadPage implements OnInit {
   posts:Post[];
   thread:number;
+  page:number;
 
   constructor(public navCtrl:NavController,
               public params:NavParams,
               private postService:PostService,
               private loadingController:LoadingController) {
     this.thread = params.get('thread');
+    this.posts = [];
+    this.page = 1;
   }
 
   ngOnInit():void {
-    this.getPosts(this.thread);
+    this.getPosts(this.thread, this.page);
   }
 
-  getPosts(t:number):void {
+  getPosts(t:number, page:number):void {
     let loader = this.loadingController.create({
       content: "Loading"
     });
     loader.present();
-    this.postService.getPosts(t).subscribe(
+    this.postService.getPosts(t, page).subscribe(
         res => this.posts = res,
         err => console.warn(err),
       () => {
         loader.dismiss();
+      }
+    );
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    this.page++;
+    this.postService.getPosts(this.thread, this.page).subscribe(
+        res => this.posts.push(...res),
+        err => console.warn(err),
+      () => {
+        infiniteScroll.complete();
       }
     );
   }
