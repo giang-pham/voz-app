@@ -6,6 +6,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ThreadPage } from '../pages/thread/thread';
+import { SimpleDivider } from './component/simple-divider.ts'
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ThreadPage } from '../pages/thread/thread';
     ContactPage,
     HomePage,
     TabsPage,
-    ThreadPage
+    ThreadPage,
+    SimpleDivider
   ],
   imports: [
     IonicModule.forRoot(MyApp)
