@@ -4,26 +4,32 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-card *ngFor="let thread of threads" (click)="goto(thread.id)">
-    <ion-item>
-      <ion-row>
-        <ion-col><h2>{{thread.author}}</h2></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <p>{{thread.view}} views</p>
-        </ion-col>
-        <ion-col center text-center>
-            <p>11h ago</p>
-        </ion-col>
-      </ion-row>
-    </ion-item>
+    <ion-row class="threadHeader">
+      <ion-col left padding-left>
+        <ion-note>
+          {{thread.author}}
+        </ion-note>
+      </ion-col>
+      <ion-col right text-right padding-right>
+        <ion-icon *ngIf="thread.star === true" name="star"></ion-icon>
+        <ion-icon *ngIf="thread.hot === true" name="trending-up"></ion-icon>
+
+        <ion-note>
+          {{thread.view}} views
+        </ion-note>
+      </ion-col>
+    </ion-row>
+    <simple-divider></simple-divider>
     <ion-card-content>
       <p>{{thread.title}}</p>
     </ion-card-content>
-
   </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingText="Loading more"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
 

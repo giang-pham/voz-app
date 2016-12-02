@@ -8,4 +8,4 @@ var Thread = (function () {
     return Thread;
 }());
 exports.Thread = Thread;
-//# sourceMappingURL=threadObj.js.mapmap
+//# sourceMappingURL=threadObj.js.map
